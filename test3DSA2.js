@@ -29,3 +29,47 @@ Sample Output 1
 Explanation of Sample 1
 A possible way to choose a 3 length nice subarray is : A2..4 = [2,4,1]
 Here 2 AND 4 = 0, 2 AND 1 = 0, 4 AND 1 = 0, hence it is a nice subarray. */
+
+function largestLength(arr, n) {
+  let maxLength = 0;
+  for (let i = 0; i < n; i++) {
+    for (let j = i; j < n; j++) {
+      let subarray = arr.slice(i, j + 1);
+      let isNice = true;
+
+      for (let k = 0; k < subarray.length; k++) {
+        for (let l = k + 1; l < subarray.length; l++) {
+          if ((subarray[k] & subarray[l]) !== 0) {
+            isNice = false;
+            break;
+          }
+        }
+        if (!isNice) break;
+      }
+      if (isNice) {
+        maxLength = Math.max(maxLength, j - i + 1);
+      }
+    }
+  }
+  return maxLength;
+}
+
+function largestLength(arr, n) {
+  let maxLength = 0;
+  let currLength = 0;
+
+  for (let i = 0; i < n; i++) {
+    currLength = 0;
+    for (let j = i; j < n; j++) {
+      if ((arr[i] & arr[j]) === 0) {
+        currLength = j - i + 1;
+        maxLength = Math.max(maxLength, currLength);
+      } else {
+        currLength = 0;
+      }
+    }
+  }
+  return maxLength;
+}
+
+console.log(largestLength([6, 2, 4, 1, 7], 5));
