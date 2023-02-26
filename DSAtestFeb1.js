@@ -33,3 +33,30 @@ One can perform the operations as :
 First perform operation 1 and remove the first element of the array. Array A becomes = [4 10].
 Then perform the second operation and divide each element of the array by 2. A becomes = [2 5].
 Now Antonio likes array [2 5] because the sum of all elements of this array is 7, which is odd. */
+
+function oddSum(arr, n) {
+  let sum = 0;
+  let count = 0;
+  for (let i = 0; i < n; i++) {
+    sum += arr[i];
+    if (arr[i] % 2 !== 0) {
+      count++;
+    }
+  }
+
+  if (sum % 2 !== 0) {
+    return 0;
+  } else {
+    if (count > 0) {
+      return 1;
+    } else {
+      while (sum % 2 === 0) {
+        sum /= 2;
+        count++;
+      }
+      return count;
+    }
+  }
+}
+
+console.log(Oddarray([6, 4, 10], 3));
